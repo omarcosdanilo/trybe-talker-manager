@@ -21,6 +21,7 @@ const authMiddleware = (req, res, next) => {
   const token = generateToken();
   
   req.token = { token };
+  req.headers.Authorization = { token };
 
   next();
 };
