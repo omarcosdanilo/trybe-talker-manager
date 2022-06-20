@@ -13,10 +13,13 @@ const getTalkers = async () => {
   return talkersParsed;
 };
 
-const writeTalker = async (newTalker) => {
+const writeTalker = async (newTalkerData) => {
+  const { age, name, talk } = newTalkerData;
   const talkers = await getTalkers();
+  const newTalker = { name, age, id: talkers.length + 1, talk };
   talkers.push(newTalker);
   await fs.writeFile('./talker.json', JSON.stringify(talkers));
+  return newTalker;
 };
 
 const updateTalker = async (id, newTalkerData) => {
@@ -44,8 +47,8 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', authtoken, authNewTalkerPost, async (req, res) => {
-  await writeTalker(req.body);
-  res.status(201).json(req.body);
+  const newTalker = await writeTalker(req.body);
+  res.status(201).json(newTalker);
 });
 
 router.put('/:id', authtoken, authNewTalkerPost, async (req, res) => {
