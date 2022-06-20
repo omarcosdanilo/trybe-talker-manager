@@ -20,13 +20,6 @@ const loginRouter = require('./loginRouter');
 
 app.use('/login', loginRouter);
 app.use('/talker', talkerRouter);
-// app.use(authMiddleware);
-// app.use(authNewTalkerPost);
-
-// app.use(authNewTalkerPost);
-// app.use('/talker', talkerRouter);
-// app.use(authMiddleware);
-// app.use('/login', loginRouter);
 
 app.listen(PORT, () => {
   console.log('Online');
