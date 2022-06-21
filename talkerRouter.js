@@ -57,4 +57,13 @@ router.put('/:id', authtoken, authNewTalkerPost, async (req, res) => {
   res.status(200).json(talkerData);
 });
 
+router.delete('/:id', authtoken, async (req, res) => {
+  const { id } = req.params;
+  const talkers = await getTalkers();
+  const talkerIndex = talkers.findIndex(item => item.id === Number(id));
+  talkers.splice(talkerIndex, 1);
+  await fs.writeFile('./talker.json', JSON.stringify(talkers));
+  res.send(204).end();
+})
+
 module.exports = router;
