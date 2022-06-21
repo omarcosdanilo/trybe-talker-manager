@@ -31,6 +31,14 @@ const updateTalker = async (id, newTalkerData) => {
   return { id: Number(id), ...newTalkerData };
 };
 
+router.get('/search', authtoken, async (req, res) => {
+  const { q } = req.query;
+  const talkers = await getTalkers();
+  if (!q) return res.status(200).json(talkers);
+  const filtered = talkers.filter((t) => t.name.includes(q));
+  return res.status(200).json(filtered);
+});
+
 router.get('/', async (req, res) => {
   const talkers = await getTalkers();
   return res.status(200).json(talkers);
